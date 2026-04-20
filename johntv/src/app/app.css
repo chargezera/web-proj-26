@@ -1,0 +1,147 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.shell {
+  min-height: 100vh;
+  padding: 2rem;
+  position: relative;
+  background: var(--background);
+  color: var(--text);
+}
+
+.route-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--primary) 0%, #ffffff 50%, var(--primary) 100%);
+  box-shadow: 0 0 10px rgba(204, 0, 204, 0.18);
+  animation: route-progress 0.9s linear infinite;
+  z-index: 20;
+}
+
+.topbar {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.logotext{
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.logo {
+  max-width: 19%;
+}
+
+.brand-mark {
+  margin: 0;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.18rem;
+  font-size: 2.5rem;
+  font-weight: 1000;
+}
+
+.center-nav {
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.nav a,
+.logout {
+  text-decoration: none;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.72rem 1rem;
+}
+
+.center-nav a.active,
+.center-nav a:hover,
+.logout:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.center-nav a,
+.logout {
+  text-decoration: none;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.72rem 1rem;
+}
+
+.center-nav a.active,
+.center-nav a:hover,
+.logout:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.logout {
+  cursor: pointer;
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.content {
+  margin-top: 1rem;
+}
+
+.welcome {
+  margin-bottom: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 16px;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+}
+
+@keyframes route-progress {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (max-width: 900px) {
+  .shell {
+    padding: 1rem;
+  }
+
+  .topbar {
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .center-nav,
+  .nav {
+    justify-content: center;
+  }
+}

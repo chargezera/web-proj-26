@@ -1,0 +1,110 @@
+<section class="hero">
+  <div>
+    <p class="eyebrow">Counter-Strike Hub</p>
+    <p class="intro">
+      Track upcoming matches, browse ranked teams, and publish your own predictions.
+    </p>
+  </div>
+    <div class="hero-card">
+    <p>Live now</p>
+    @if (matchesLoading) {
+      <h2>Loading featured match...</h2>
+      <span>The first request is already in progress.</span>
+    } @else if (matches.length > 0) {
+      <h2>{{ matches[0].title }}</h2>
+      <span>{{ matches[0].tournament.name }}</span>
+    } @else {
+      <h2>No featured match yet</h2>
+      <span>Seed data loads after the backend migrations run.</span>
+    }
+  </div>
+  <div class="hero-card">
+    <p>News</p>
+    <h2>New talent arrives to LG</h2>
+    <span>counterstrikerigrokcs transfers to Lunar Gaming</span>
+  </div>
+    <div class="hero-card">
+    <p>Player of the Year</p>
+    <div class="player-card">
+      <img class="player" src="images/kenzo.png"/>
+      <div class="player-text">
+        <span>akenz</span>
+        <span>Lunar Gaming </span>
+        <span>Phenomenous 1.56 JohnTV 2.0 rating made him the best KBTU player</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="grid">
+  <article class="panel">
+    <div class="panel-title">
+      <h3>Top Teams</h3>
+      <span>{{ teams.length }} total</span>
+    </div>
+    @if (teamsError) {
+      <p class="error">{{ teamsError }}</p>
+    } @else if (teamsLoading) {
+      <p class="status">Loading teams...</p>
+    } @else {
+      <div class="stack">
+        @for (team of teams; track team.id) {
+          <div class="row-card">
+            <div>
+              <strong>#{{ team.world_ranking }} {{ team.name }}</strong>
+              <p>{{ team.country }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </article>
+
+  <article class="panel">
+    <div class="panel-title">
+      <h3>Upcoming Matches</h3>
+      <span>{{ matches.length }} total</span>
+    </div>
+    @if (matchesError) {
+      <p class="error">{{ matchesError }}</p>
+    } @else if (matchesLoading) {
+      <p class="status">Loading matches...</p>
+    } @else {
+      <div class="stack">
+        @for (match of matches; track match.id) {
+          <a class="row-card row-link" [routerLink]="['/matches', match.id]">
+            <div>
+              <strong>{{ match.team_one.name }} vs {{ match.team_two.name }}</strong>
+              <p>{{ match.tournament.name }} • {{ match.status }}</p>
+            </div>
+            <time>{{ match.match_time | date: 'MMM d, HH:mm' }}</time>
+          </a>
+        }
+      </div>
+    }
+  </article>
+
+  <article class="panel">
+    <div class="panel-title">
+      <h3>Tournaments</h3>
+      <span>{{ tournaments.length }} listed</span>
+    </div>
+    @if (tournamentsError) {
+      <p class="error">{{ tournamentsError }}</p>
+    } @else if (tournamentsLoading) {
+      <p class="status">Loading tournaments...</p>
+    } @else {
+      <div class="stack">
+        @for (tournament of tournaments; track tournament.id) {
+          <div class="row-card">
+            <div>
+              <strong>{{ tournament.name }}</strong>
+              <p>{{ tournament.location }} • {{ tournament.tier }}</p>
+            </div>
+            <span>{{ tournament.start_date | date: 'MMM d' }}</span>
+          </div>
+        }
+      </div>
+    }
+  </article>
+</section>

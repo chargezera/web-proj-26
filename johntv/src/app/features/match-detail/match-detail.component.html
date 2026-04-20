@@ -1,0 +1,77 @@
+@if (loading) {
+  <p class="status">Loading match details...</p>
+}
+
+@if (errorMessage) {
+  <p class="error">{{ errorMessage }}</p>
+}
+
+@if (match && !loading) {
+  <section class="hero panel">
+    <div>
+      <p class="eyebrow">Match Details</p>
+      <h1>{{ match.team_one.name }} vs {{ match.team_two.name }}</h1>
+      <p>{{ match.tournament.name }} • {{ match.tournament.location }} • BO{{ match.best_of }}</p>
+      <time>{{ match.match_time | date: 'MMM d, y, HH:mm' }}</time>
+    </div>
+    <a routerLink="/matches" class="back-link">Back to matches</a>
+  </section>
+
+  <section class="maps panel">
+    <div class="section-head">
+      <h2>Map Pool</h2>
+      <span>{{ match.maps?.length || 0 }} maps</span>
+    </div>
+    <div class="map-list">
+      @for (map of match.maps || []; track map.id) {
+        <article class="map-card">
+          <strong>Map {{ map.order }}: {{ map.name }}</strong>
+          <p>
+            @if (map.picked_by) {
+              Picked by {{ map.picked_by.name }}
+            } @else {
+              Decider
+            }
+          </p>
+          @if (map.note) {
+            <span>{{ map.note }}</span>
+          }
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="rosters">
+    <article class="panel roster-card">
+      <div class="section-head">
+        <h2>{{ match.team_one.name }} Roster</h2>
+        <span>#{{ match.team_one.world_ranking }}</span>
+      </div>
+      <div class="player-list">
+        @for (player of match.team_one.players || []; track player.id) {
+          <div class="player-card">
+            <strong>{{ player.nickname }}</strong>
+            <p>{{ player.full_name }}</p>
+            <span>{{ player.role }} • {{ player.country }} • {{ player.rating }}</span>
+          </div>
+        }
+      </div>
+    </article>
+
+    <article class="panel roster-card">
+      <div class="section-head">
+        <h2>{{ match.team_two.name }} Roster</h2>
+        <span>#{{ match.team_two.world_ranking }}</span>
+      </div>
+      <div class="player-list">
+        @for (player of match.team_two.players || []; track player.id) {
+          <div class="player-card">
+            <strong>{{ player.nickname }}</strong>
+            <p>{{ player.full_name }}</p>
+            <span>{{ player.role }} • {{ player.country }} • {{ player.rating }}</span>
+          </div>
+        }
+      </div>
+    </article>
+  </section>
+}

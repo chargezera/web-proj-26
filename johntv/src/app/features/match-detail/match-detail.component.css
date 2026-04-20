@@ -1,0 +1,77 @@
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.2rem;
+}
+
+.hero,
+.section-head,
+.player-card,
+.map-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.hero {
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.14rem;
+  color: var(--primary);
+  font-size: 0.75rem;
+}
+
+.back-link {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.maps,
+.rosters {
+  margin-top: 1rem;
+}
+
+.map-list,
+.player-list {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+}
+
+.map-card,
+.player-card {
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  align-items: center;
+}
+
+.rosters {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.player-card,
+.map-card {
+  flex-direction: column;
+  align-items: start;
+}
+
+.error {
+  color: var(--danger);
+}
+
+@media (max-width: 900px) {
+  .hero,
+  .rosters {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+}

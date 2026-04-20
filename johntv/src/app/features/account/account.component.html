@@ -1,0 +1,48 @@
+@if (authService.currentUser(); as user) {
+  <section class="hero panel">
+    <div>
+      <p class="eyebrow">Account</p>
+      <h1>{{ user.username }}</h1>
+      <p>{{ user.email }}</p>
+    </div>
+    <a routerLink="/posts" class="cta">Manage Predictions</a>
+  </section>
+
+  @if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+  }
+
+  <section class="stats">
+    <article class="panel stat-card">
+      <span>Total posts</span>
+      <strong>{{ posts.length }}</strong>
+    </article>
+    <article class="panel stat-card">
+      <span>Top confidence</span>
+      <strong>{{ posts.length ? posts[0].confidence : 0 }}%</strong>
+    </article>
+  </section>
+
+  <section class="panel">
+    <div class="section-head">
+      <h2>Recent Predictions</h2>
+      <a routerLink="/posts" class="cta-link">Open editor</a>
+    </div>
+
+    @if (loading) {
+      <p>Loading account data...</p>
+    } @else {
+      <div class="post-list">
+        @for (post of posts; track post.id) {
+          <article class="post-card">
+            <strong>{{ post.title }}</strong>
+            <p>{{ post.match_title }}</p>
+            <span>{{ post.confidence }}% confidence</span>
+          </article>
+        } @empty {
+          <p>No predictions yet. Start from the predictions page.</p>
+        }
+      </div>
+    }
+  </section>
+}

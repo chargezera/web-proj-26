@@ -1,0 +1,100 @@
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.1rem;
+}
+
+.compose {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+label {
+  display: grid;
+  gap: 0.45rem;
+}
+
+input,
+select,
+textarea {
+  background: var(--background);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.8rem 0.9rem;
+}
+
+button {
+  border: 1px solid var(--primary);
+  border-radius: 999px;
+  padding: 0.9rem 1.1rem;
+  background: var(--primary);
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ghost {
+  background: #ffffff;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.post-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.meta {
+  min-width: 12rem;
+  text-align: right;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.14rem;
+  color: var(--primary);
+  font-size: 0.75rem;
+}
+
+.success {
+  color: var(--success);
+}
+
+.error {
+  color: var(--danger);
+}
+
+@media (max-width: 900px) {
+  .compose,
+  .post-card {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .meta {
+    text-align: left;
+    min-width: 0;
+  }
+}

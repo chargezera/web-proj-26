@@ -1,0 +1,75 @@
+<section class="page-header">
+  <div>
+    <p class="eyebrow">Predictions</p>
+    <h1>Create your own match takes</h1>
+    <p>Full CRUD is enabled here: create, review, update, and delete only your own posts.</p>
+  </div>
+</section>
+
+<section class="compose panel">
+  <label>
+    Match
+    <select [(ngModel)]="form.match" name="match">
+      <option value="">Select a match</option>
+      @for (match of matches; track match.id) {
+        <option [value]="match.id">{{ match.title }}</option>
+      }
+    </select>
+  </label>
+
+  <label>
+    Prediction title
+    <input [(ngModel)]="form.title" name="title" placeholder="Vitality 2-0 incoming" />
+  </label>
+
+  <label class="wide">
+    Analysis
+    <textarea [(ngModel)]="form.body" name="body" rows="4" placeholder="Explain your read on the veto, form, and map pool."></textarea>
+  </label>
+
+  <label>
+    Confidence %
+    <input [(ngModel)]="form.confidence" name="confidence" type="number" min="1" max="100" />
+  </label>
+
+  <div class="actions">
+    <button type="button" (click)="submitPost()">{{ editingPostId ? 'Update Post' : 'Publish Post' }}</button>
+    <button type="button" class="ghost" (click)="resetForm()">Clear</button>
+  </div>
+</section>
+
+@if (errorMessage) {
+  <p class="error">{{ errorMessage }}</p>
+}
+
+@if (successMessage) {
+  <p class="success">{{ successMessage }}</p>
+}
+
+@if (loading) {
+  <p class="status">Loading your posts...</p>
+} @else {
+  <section class="list">
+    @for (post of posts; track post.id) {
+      <article class="panel post-card">
+        <div>
+          <p class="eyebrow">{{ post.match_title }}</p>
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.body }}</p>
+        </div>
+        <div class="meta">
+          <strong>{{ post.confidence }}% confidence</strong>
+          <span>Updated {{ post.updated_at | date: 'MMM d, HH:mm' }}</span>
+          <div class="actions">
+            <button type="button" (click)="startEdit(post)">Edit</button>
+            <button type="button" class="ghost" (click)="removePost(post.id)">Delete</button>
+          </div>
+        </div>
+      </article>
+    } @empty {
+      <article class="panel empty">
+        <p>Your prediction board is empty. Publish the first one above.</p>
+      </article>
+    }
+  </section>
+}

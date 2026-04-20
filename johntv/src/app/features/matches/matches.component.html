@@ -1,0 +1,77 @@
+<section class="page-header">
+  <div>
+    <p class="eyebrow">Matches</p>
+    <h1>Filter the event board</h1>
+  </div>
+</section>
+
+<section class="filters panel">
+  <label>
+    Search
+    <input [(ngModel)]="search" name="search" placeholder="Vitality, Spirit, Melbourne..." />
+  </label>
+
+  <label>
+    Team
+    <select [(ngModel)]="team" name="team">
+      <option value="">All teams</option>
+      @if (!teamsLoading) {
+        @for (teamOption of teams; track teamOption.id) {
+          <option [value]="teamOption.id">{{ teamOption.name }}</option>
+        }
+      }
+    </select>
+  </label>
+
+  <label>
+    Status
+    <select [(ngModel)]="status" name="status">
+      <option value="">Any</option>
+      <option value="upcoming">Upcoming</option>
+      <option value="live">Live</option>
+      <option value="finished">Finished</option>
+    </select>
+  </label>
+
+  <div class="actions">
+    <button type="button" (click)="loadMatches()">Apply Filters</button>
+    <button type="button" class="ghost" (click)="clearFilters()">Reset</button>
+  </div>
+</section>
+
+@if (teamsError) {
+  <p class="error">{{ teamsError }}</p>
+}
+
+@if (matchesError) {
+  <p class="error">{{ matchesError }}</p>
+}
+
+@if (matchesLoading) {
+  <p class="status">Loading matches...</p>
+} @else {
+  <section class="list">
+    @for (match of matches; track match.id) {
+      <a class="match-card panel" [routerLink]="['/matches', match.id]">
+        <div>
+          <p class="match-status">{{ match.status }}</p>
+          <h3>{{ match.team_one.name }} vs {{ match.team_two.name }}</h3>
+          <p>{{ match.tournament.name }} • BO{{ match.best_of }}</p>
+        </div>
+        <div class="align-end">
+          <time>{{ match.match_time | date: 'MMM d, y, HH:mm' }}</time>
+          @if (match.winner) {
+            <strong>Winner: {{ match.winner.name }}</strong>
+          }
+          @else {
+            <strong>Open details</strong>
+          }
+        </div>
+      </a>
+    } @empty {
+      <article class="panel empty">
+        <p>No matches found for the selected filters.</p>
+      </article>
+    }
+  </section>
+}

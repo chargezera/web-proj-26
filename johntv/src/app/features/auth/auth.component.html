@@ -1,0 +1,53 @@
+<section class="auth-layout">
+  <article class="panel">
+    <p class="eyebrow">Login</p>
+    <h1>Jump back into your dashboard</h1>
+
+    <label>
+      Username
+      <input [(ngModel)]="loginForm.username" name="loginUsername" />
+    </label>
+
+    <label>
+      Password
+      <input [(ngModel)]="loginForm.password" name="loginPassword" type="password" />
+    </label>
+
+    <button type="button" (click)="login()">Login</button>
+  </article>
+
+  <article class="panel">
+    <p class="eyebrow">Register</p>
+    <h2>Create a new account</h2>
+
+    <label>
+      Username
+      <input [(ngModel)]="registerForm.username" name="registerUsername" />
+    </label>
+
+    <label>
+      Email
+      <input [(ngModel)]="registerForm.email" name="registerEmail" type="email" />
+    </label>
+
+    <label>
+      Password
+      <input [(ngModel)]="registerForm.password" name="registerPassword" type="password" />
+    </label>
+
+    <label>
+      Favorite Team
+      <input [(ngModel)]="registerForm.favoriteTeam" name="favoriteTeam" />
+    </label>
+
+    <button type="button" (click)="register()">Register</button>
+  </article>
+</section>
+
+@if (errorMessage) {
+  <p class="error">{{ errorMessage }}</p>
+}
+
+@if (successMessage) {
+  <p class="success">{{ successMessage }}</p>
+}
